@@ -51,3 +51,76 @@
 .js .reveal.is-in{opacity:1;animation:rise .75s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--d,0s)}
 @media(max-width:760px){.network-inner{grid-template-columns:1fr;gap:22px}.network-section{padding:44px 0}.scroll-top{right:14px;bottom:14px;width:44px;height:44px}}
 @media(prefers-reduced-motion:reduce){.js .reveal{opacity:1}.hero-card{animation:none}.scroll-top{transition:none}}
+
+/* ===== Life layer: depth, glow, particles, scroll-linked motion ===== */
+@keyframes unveil{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+@keyframes wordIn{from{opacity:0;translate:0 .6em;rotate:3deg}}
+@keyframes spin{to{rotate:360deg}}
+@keyframes ringPulse{50%{scale:1.05;opacity:.65}}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(199,164,91,.55)}100%{box-shadow:0 0 0 12px rgba(199,164,91,0)}}
+@keyframes particle{0%{translate:0 0;opacity:0}15%{opacity:.8}100%{translate:var(--dx,0) -520px;opacity:0}}
+@keyframes sheen{to{translate:260% 0}}
+@keyframes pageIn{from{opacity:0}}
+main{animation:pageIn .6s ease backwards}
+.page-leaving main,.page-leaving .site-footer{opacity:0;transition:opacity .2s ease}
+/* progress bar */
+.scroll-progress{position:fixed;left:0;top:0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);transform-origin:0 50%;z-index:200;pointer-events:none}
+/* hero life */
+.hero .hero-ring{animation:ringPulse 6s ease-in-out infinite}
+.hero .ring-one{animation:spin 26s linear infinite}.hero .ring-two{animation:spin 42s linear infinite reverse}
+.hero .ring-one:after,.hero .ring-two:after{content:"";position:absolute;left:50%;top:-4px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 14px 3px rgba(224,201,143,.6)}
+.hero .ring-two:after{width:5px;height:5px;top:-2.5px;margin-left:-2.5px}
+.hero-cross{animation:drift 9s ease-in-out infinite}
+.hero-stamp{animation:drift 8s 1s ease-in-out infinite}
+.live-dot{animation:pulseDot 2s ease-out infinite}
+.hero-card{will-change:transform;transition:box-shadow .3s}.hero-card:hover{box-shadow:0 34px 80px rgba(0,0,0,.32)}
+.hero-card:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(199,164,91,.22) 50%,transparent 65%);width:40%;translate:-150% 0;animation:sheen 5.5s 1.5s ease-in-out infinite;pointer-events:none}
+.hero-card{overflow:hidden}
+.hero-spot{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 360px at var(--sx,70%) var(--sy,40%),rgba(224,201,143,.2),transparent 70%);opacity:0;transition:opacity .5s}
+.hero:hover .hero-spot,.page-hero:hover .hero-spot{opacity:1}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particles i{position:absolute;bottom:-10px;width:var(--s,4px);height:var(--s,4px);border-radius:50%;background:var(--gold-light);opacity:0;animation:particle var(--t,14s) var(--dl,0s) linear infinite}
+.has-words .word{display:inline-block;animation:wordIn .8s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--wd,0s)}
+.has-words{animation:none!important}
+.hero-bottom-line .container span{position:relative;transition:color .3s,letter-spacing .3s}.hero-bottom-line .container span:hover{color:var(--gold-light);letter-spacing:.22em}
+/* eyebrow line draws */
+.eyebrow-line{transform-origin:left;animation:rise 1s .3s backwards,drawX 1s .3s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes drawX{from{scale:0 1}}
+/* buttons */
+.button{transition:transform .2s,background .2s,box-shadow .3s}
+.button:after{content:"";position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,255,255,.45),transparent);translate:-150% 0;transition:translate .6s}
+.button:hover:after{translate:350% 0}
+.button-gold:hover{box-shadow:0 10px 26px rgba(199,164,91,.4)}
+.button span,.text-link span,.impact-card a span{display:inline-block;transition:transform .25s}
+.button:hover span{transform:translate(3px,-3px)}
+.text-link{background:linear-gradient(var(--gold),var(--gold)) left bottom/0 1px no-repeat;transition:background-size .35s,color .2s}.text-link:hover{background-size:100% 1px}
+.nav-link{position:relative}
+/* cards: glow + tilt */
+.pillar-card,.impact-card,.article-card,.hq-card,.news-index-card{position:relative;transform-style:preserve-3d}
+.fx-glow:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(circle 220px at var(--mx,50%) var(--my,50%),rgba(199,164,91,.2),transparent 70%)}
+.fx-glow:hover:after{opacity:1}
+.pillar-symbol{display:inline-block;transition:transform .5s cubic-bezier(.2,.7,.2,1),color .3s}.pillar-card:hover .pillar-symbol{transform:translateY(-6px) rotate(18deg) scale(1.2);color:#9b7b39}
+.pillar-number,.impact-icon{transition:letter-spacing .3s}.pillar-card:hover .pillar-number,.impact-card:hover .impact-icon{letter-spacing:.3em}
+.impact-section{background-image:linear-gradient(120deg,var(--green) 0%,var(--green-2) 50%,var(--green) 100%);background-size:200% 100%;animation:bgShift 18s ease-in-out infinite alternate}
+@keyframes bgShift{to{background-position:100% 0}}
+.impact-section:after{animation:drift 12s ease-in-out infinite}
+.visit-cta{position:relative;overflow:hidden}.visit-cta:before{content:"";position:absolute;width:420px;height:420px;border:1px solid rgba(224,201,143,.18);border-radius:50%;right:-80px;top:-240px;box-shadow:0 0 0 30px rgba(224,201,143,.03),0 0 0 70px rgba(224,201,143,.03);animation:ringPulse 8s ease-in-out infinite}
+.visit-cta-inner{position:relative}
+.page-hero:after{animation:ringPulse 9s ease-in-out infinite}
+/* image reveal + parallax */
+.js .leader-image-wrap.is-in .leader-image{animation:unveil 1.2s cubic-bezier(.7,0,.2,1) backwards .15s}
+.js .leader-image-wrap.is-in .leader-image-frame{animation:rise 1s backwards}
+.leader-image{will-change:translate}
+.image-caption{transition:padding .3s,background .3s}.leader-image-wrap:hover .image-caption{padding-left:26px;background:#fff}
+/* timeline scroll fill */
+.timeline-fill{position:absolute;top:10px;bottom:10px;left:83px;width:2px;margin-left:-.5px;background:linear-gradient(var(--gold-light),var(--gold));transform-origin:top;transform:scaleY(var(--p,0));pointer-events:none}
+.js .timeline-item:before{transition:background .4s,box-shadow .4s,transform .3s}
+.js .timeline-item:not(.is-in):before{background:#5c7466;box-shadow:none}
+.js .timeline-item.is-in:before{box-shadow:0 0 0 7px rgba(224,201,143,.18)}
+.timeline-year{display:inline-block;transition:letter-spacing .3s}.timeline-item:hover .timeline-year{letter-spacing:.06em}
+.impact-list article{transition:padding-left .3s,background .3s}.impact-list article:hover{padding-left:14px;background:rgba(199,164,91,.07)}
+.value-chips span{transition:background .25s,color .25s,transform .25s}.value-chips span:hover{background:var(--green);color:#fff;transform:translateY(-2px)}
+.network-link{position:relative;overflow:hidden}
+@media(max-width:760px){.timeline-fill{left:62px}.hero .ring-one:after{top:-3px}}
+@media(hover:none){.fx-glow:after,.hero-spot{display:none}}
+@media(prefers-reduced-motion:reduce){main{animation:none}.hero .hero-ring,.hero-cross,.hero-stamp,.live-dot,.impact-section,.impact-section:after,.visit-cta:before,.page-hero:after,.hero-card:before{animation:none!important}.particles{display:none}.scroll-progress{display:none}.has-words .word{animation:none}}
